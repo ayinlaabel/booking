@@ -25,18 +25,22 @@ db.once('err',  (err) => {
 //Init App
 const app = express();
 
-//Middleware
-app.use(express.static(path.join(__dirname, '/public')));
-//Set view
-app.set('view engine', 'ejs');
+//===================================================================
+//-------------------------Middlewares-------------------------------
+//===================================================================
+
+//Body Parser Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-//Body Parser Middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+//Static Folder
+app.use(express.static(path.join(__dirname, '/public')));
+
+
 //Cookie Middleware
 // app.use(cookieParser());
 
@@ -107,10 +111,10 @@ app.get('/doctors', (req, res) => {
 });
 
 //Other Routes
-const routes = require('./routes/register');
+const reg = require('./routes/register');
 const admin = require('./routes/admin');
 const doc = require('./routes/doctors');
-app.use('/hospital', routes);
+app.use('/hospital', reg);
 app.use('/admin', admin);
 app.use('/doctors', doc);
 

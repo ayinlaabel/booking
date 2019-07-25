@@ -22,14 +22,7 @@
 <!--===============================================================================================-->
 </head>
 <body>
-	<%- messages('message', locals) %>
-	<% if (errors.length) { %>
-		<% errors.forEach((error) =>{ %>
-		<div class="alert alert-danger">
-			<%= error.msg %>
-		</div>
-		<% }); %>
-	<% } %>
+	<%- include ./partical/header %>
 	
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('/admin/images/bg-01.jpg');">

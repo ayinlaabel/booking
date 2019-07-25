@@ -26,6 +26,7 @@
      <!--     Fonts and icons     -->
      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
      <!-- CSS Files -->
      <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
      <link href="/assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
@@ -170,8 +171,3 @@
              </nav>
              <!-- End Navbar -->
              <%- messages('message', locals) %>
-             <% errors.forEach((error) =>{ %>
-               <div class="alert alert-danger">
-                 <%= error.msg %>
-               </div>
-             <% }); %>

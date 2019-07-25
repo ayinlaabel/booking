@@ -1,16 +1,16 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
-const routes = express.Router();
+const router = express.Router();
 
 //Bring in Models
 const pendingDoc = require('../model/pendingDoc');
 
-routes.get('/application', (req, res) => {
+router.get('/application', (req, res) => {
     res.render('doctorApplication');
 });
 
-routes.post('/application', (req, res)=>{
+router.post('/application', (req, res)=>{
     const name = req.body.name;
     const lastname = req.body.lastname;
     const email = req.body.email;
@@ -73,4 +73,4 @@ routes.post('/application', (req, res)=>{
     }
   });
 
-module.exports = routes;
+module.exports = router;
