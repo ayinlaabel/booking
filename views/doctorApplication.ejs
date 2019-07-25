@@ -1,0 +1,66 @@
+<%- include ./partical/header -%>
+
+    <div class="container">
+        <br>
+        <form action="/doctors/application" method="POST">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Name</label>
+                    <input type="text" class="form-control" id="inputEmail4" placeholder="John Doe" name="name">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Last Name</label>
+                    <input type="text" class="form-control" id="inputPassword4" placeholder="Frank" name="lastname">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input type="text" class="form-control" id="inputEmail4" placeholder="example@example.com" name="email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Date of Birth</label>
+                    <input type="date" class="form-control" id="inputPassword4" placeholder="02-12-1980" name="dob">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputAddress">Address</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="address1">
+            </div>
+            <div class="form-group">
+                <label for="inputAddress2">Address 2</label>
+                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" name="address2">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">City</label>
+                    <input type="text" class="form-control" id="inputCity" name="city">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputState">State</label>
+                    <select id="inputState" class="form-control" name="state">
+                        <option selected>Choose...</option>
+                        <option value="Lagos">Lagos</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">Zip</label>
+                    <input type="text" class="form-control" id="inputZip" name="zipcode">
+                </div>
+            </div>
+            <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Passowrd</label>
+                        <input type="text" class="form-control" id="inputEmail4" placeholder="Passowrd" name="password">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Confirm Password</label>
+                        <input type="text" class="form-control" id="inputPassword4" placeholder="Confirm Passowrd" name="passwordC">
+                    </div>
+                </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+            <br>
+    </div>
+
+<%- include ./partical/footer -%>

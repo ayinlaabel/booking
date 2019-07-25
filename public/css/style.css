@@ -8422,8 +8422,8 @@ h1, h2, h3, h4, h5,
         .owl-carousel.home-slider .owl-dots .owl-dot.active {
           background: #fff; }
 
-.container {
-  max-width: 1230px; }
+/* .container {
+  max-width: 1230px; } */
 
 .bg-light {
   background: #fafafa !important; }

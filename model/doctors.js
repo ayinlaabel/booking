@@ -1,30 +1,46 @@
 const mongoose= require('mongoose');
 
-let userSchema = mongoose.Schema({
-    fullName:{
+let doctorSchema = mongoose.Schema({
+    name:{
         type: String,
         required: true
     },
-    fullName:{
+    lastName:{
         type: String,
         required: true
     },
-    fullName:{
+    email:{
         type: String,
         required: true
     },
-    fullName:{
+    dob:{
         type: String,
         required: true
     },
-    fullName:{
+    address1:{
         type: String,
         required: true
     },
-    fullName:{
+    address2:{
+        type: String,
+        // required: true
+    },
+    city:{
+        type: String,
+        required: true
+    },
+    state:{
+        type: String,
+        required: true
+    },
+    zipcode:{
+        type: String,
+        // required: true
+    },
+    password:{
         type: String,
         required: true
     }
 });
 
-let User = module.exports = mongoose.model('User', userSchema);
+let Doctor = module.exports = mongoose.model('Doctor', doctorSchema);
