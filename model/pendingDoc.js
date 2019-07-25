@@ -36,7 +36,11 @@ let doctorSchema = mongoose.Schema({
     zipcode:{
         type: String,
         // required: true
+    },
+    password:{
+        type: String,
+        required: true
     }
 });
 
-let Conf = module.exports = mongoose.model('User', doctorSchema);
+let pendingDoc = module.exports = mongoose.model('PendingDoc', doctorSchema);

@@ -5,6 +5,8 @@ const routes = express.Router();
 
 //bring in admin
 const User = require('../model/signup');
+const pendingDoc = require('../model/pendingDoc');
+
 
 routes.get('/signup', (req, res) => {
     res.render('signup');
@@ -70,6 +72,18 @@ routes.get('/logout', (req, res) => {
 
 routes.get('/dashboard', (req, res) => {
     res.render('admin');
+});
+
+routes.get('/add_doctor', (req, res) => {
+  pendingDoc.find({}, (err, pendingDocs) =>{
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('application', {
+        pendingDocs: pendingDocs
+      });
+    }
+  })
 });
 
 module.exports = routes;

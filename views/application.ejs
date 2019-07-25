@@ -1,0 +1,20 @@
+<%- include ./partical/adminHeader -%>
+
+<div class="container">
+    <br>
+    <ul class="list-group">
+        <% pendingDocs.forEach((pendingDoc) =>{ %>
+            <li class="list-group-item">
+                <%= pendingDoc.name %> - <%= pendingDoc.lastName %> <br>
+                <span aria-disabled="true">From <%= pendingDoc.state %> </span>
+                <div class="justify-content-end">
+                    <a href="/" class="btn btn-primary">View Details</a>
+                </div>
+            </li>
+            
+        <% }); %>
+    </ul>
+    <br>
+</div>
+
+<%- include ./partical/adminFooter -%>

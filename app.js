@@ -109,8 +109,10 @@ app.get('/doctors', (req, res) => {
 //Other Routes
 const routes = require('./routes/register');
 const admin = require('./routes/admin');
+const doc = require('./routes/doctors');
 app.use('/hospital', routes);
 app.use('/admin', admin);
+app.use('/doctors', doc);
 
 //Start Server
 let port = 4000;
