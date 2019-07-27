@@ -1,10 +1,12 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const passport = require('passport');
 const mongoose = require('mongoose');
 const router = express.Router();
 
 //Bring in Models
 const pendingDoc = require('../model/pendingDoc');
+const User = require('../model/signup');
 
 router.get('/application', (req, res) => {
     res.render('doctorApplication');
@@ -54,23 +56,55 @@ router.post('/application', (req, res)=>{
         zipcode:zipcode,
         password:password
       });
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newPendingDoc.password, salt, (err, hash) => {
-            if (err) {
-                console.log(err);
-            }
-            newPendingDoc.password = hash;
-            newPendingDoc.save((err) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                  req.flash('success', 'Application Send Successfully');
-                  res.redirect('/');
-                }
-            });
-        });
+
+      newPendingDoc.save((err) => {
+        if (err) {
+            console.log(err);
+        } else {
+          req.flash('success', 'Application Send Successfully');
+          res.redirect('/');
+        }
       });
+      // bcrypt.genSalt(10, (err, salt) => {
+      //   bcrypt.hash(newPendingDoc.password, salt, (err, hash) => {
+      //       if (err) {
+      //           console.log(err);
+      //       }
+      //       newPendingDoc.password = hash;
+      //       newPendingDoc.save((err) => {
+      //           if (err) {
+      //               console.log(err);
+      //           } else {
+      //             req.flash('success', 'Application Send Successfully');
+      //             res.redirect('/');
+      //           }
+      //       });
+      //   });
+      // });
     }
   });
+
+  router.get('/login', (req, res) => {
+    res.render('docLogin');
+  });
+
+  router.post('/login', (req, res, next) =>{
+    passport.authenticate('local', {
+        successRedirect: '/doctors/dashboard',
+        failureRedirect: '/doctors/login',
+        failureFlash: true
+    })(req, res, next);
+});
+
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.flash('success', 'Logout Successful');
+  res.redirect('/doctors/login');
+});
+
+router.get('/dashboard', (req, res) =>{
+  res.render('docDashboard')
+})
+
 
 module.exports = router;

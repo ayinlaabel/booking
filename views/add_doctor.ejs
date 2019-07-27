@@ -2,59 +2,95 @@
 
 <div class="container">
     <br>
-    <form action="/admin/doctor/accept" method="POST">
+    <form action="/admin/add_doctor" method="POST">
             <div class="form-row">
                 <div class="form-group col-md-6">
                 <label for="inputEmail4">Name</label>
-                <input type="text" class="form-control" id="inputEmail4" placeholder="John Doe" value= '<%= doc.name %>' name="name">
+                <input type="text" class="form-control" id="inputEmail4" placeholder="John Doe" value= '<%= doc.name %>' name="name" disabled>
                 </div>
                 <div class="form-group col-md-6">
                 <label for="inputPassword4">Last Name</label>
-                <input type="text" class="form-control" id="inputPassword4" placeholder="Frank" value="<%= doc.lastName %>" name="lastname" >
+                <input type="text" class="form-control" id="inputPassword4" placeholder="Frank" value="<%= doc.lastName %>" name="lastname" disabled>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                <input type="hidden" class="form-control" id="inputEmail4" placeholder="John Doe" value= '<%= doc.name %>' name="name">
+                </div>
+                <div class="form-group col-md-6">
+                <input type="hidden" class="form-control" id="inputPassword4" placeholder="Frank" value="<%= doc.lastName %>" name="lastname" >
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                 <label for="inputEmail4">Email</label>
-                <input type="text" class="form-control" id="inputEmail4" placeholder="First Name & Middle Name" value="<%= doc.email %>" name="email" >
+                <input type="text" class="form-control" id="inputEmail4" placeholder="First Name & Middle Name" value="<%= doc.email %>" name="email" disabled>
                 </div>
                 <div class="form-group col-md-6">
                 <label for="inputPassword4">Date of Birth</label>
-                <input type="text" class="form-control" id="inputPassword4" placeholder="02-12-1980" value="<%= doc.dob %>" name="dob" >
+                <input type="text" class="form-control" id="inputPassword4" placeholder="02-12-1980" value="<%= doc.dob %>" name="dob" disabled>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                <input type="hidden" class="form-control" id="inputEmail4" placeholder="First Name & Middle Name" value="<%= doc.email %>" name="email" >
+                </div>
+                <div class="form-group col-md-6">
+                <input type="hidden" class="form-control" id="inputPassword4" placeholder="02-12-1980" value="<%= doc.dob %>" name="dob" >
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputAddress">Address</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" value="<%= doc.address1 %>" name="address1" >
+                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" value="<%= doc.address1 %>" name="address1" disabled>
             </div>
             <div class="form-group">
                 <label for="inputAddress2">Address 2</label>
-                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" value="<%= doc.address2 %>" name="address2" >
+                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" value="<%= doc.address2 %>" name="address2" disabled>
+            </div>
+            <div class="form-group">
+                <input type="hidden" class="form-control" id="inputAddress" placeholder="1234 Main St" value="<%= doc.address1 %>" name="address1" >
+            </div>
+            <div class="form-group">
+                <input type="hidden" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" value="<%= doc.address2 %>" name="address2" >
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                <label for="inputCity">City</label>
-                <input type="text" class="form-control" id="inputCity" value="<%= doc.city %>" name="city" >
+                    <label for="inputCity">City</label>
+                    <input type="text" class="form-control" id="inputCity" value="<%= doc.city %>"  disabled>
                 </div>
                 <div class="form-group col-md-4">
-                <label for="inputState">State</label>
-                <select id="inputState" class="form-control" name="state" >
+                    <label for="inputState">State</label>
+                    <select id="inputState" class="form-control"  disabled>
+                        <option selected><%= doc.state %></option>
+                        <option>...</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">Zip</label>
+                    <input type="text" class="form-control" id="inputZip" value="<%= doc.zipcode %>" disabled>
+                </div>
+            </div>
+            <div class="form-row" style="visibility: hidden;">
+                <div class="form-group col-md-6">
+                <input type="hidden" class="form-control" id="inputCity" value="<%= doc.city %>" name="city">
+                </div>
+                <div class="form-group col-md-4">
+                <select id="inputState" class="form-control" name="state">
                     <option selected><%= doc.state %></option>
                     <option>...</option>
                 </select>
                 </div>
-                <div class="form-group col-md-2">
-                <label for="inputZip">Zip</label>
-                <input type="text" class="form-control" id="inputZip" value="<%= doc.zipcode %>" name="zipcode" >
+                <div class="form-group col-md-2" style="visibility: hidden">
+                    <input type="text" class="form-control" id="inputZip" value="<%= doc.zipcode %>" name="zipcode">
                 </div>
                 <div class="form-group col-md-4" style="visibility: hidden;">
-                <label for="inputZip">password</label>
-                <input type="text" class="form-control"  value="<%= doc.password %>" name="password">
+                    <label for="inputZip">password</label>
+                    <input type="text" class="form-control"  value="<%= doc.password %>" name="password">
                 </div>
             </div>
             <button class="btn btn-success accept_doc" data-id="<%= doc.id %>">Accept / Confirm</button>
+            <a href="#" class="float-right btn btn-danger delete">Decline / Delete</a>
         </form>
-        <a href="#" class="float-right btn btn-danger">Decline / Delete</a>
         <br>
 </div>
 
