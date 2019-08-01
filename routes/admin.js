@@ -57,7 +57,7 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', (req, res, next) =>{
-    passport.authenticate('local', {
+    passport.authenticate('user-local', {
         successRedirect: '/admin/dashboard',
         failureRedirect: '/admin/login',
         failureFlash: true
@@ -95,7 +95,7 @@ router.get('/doctor/:id', (req, res) => {
   })
 });
 
-router.post('/add_doctor', (req, res)=>{
+router.post('/add_doctor', async (req, res)=>{
   const name = req.body.name;
   const lastname = req.body.lastname;
   const email = req.body.email;
@@ -128,26 +128,26 @@ router.post('/add_doctor', (req, res)=>{
           errors:errors,
       });
       } else {
-    let newUser = new User({
-      name:name,
-      lastName:lastname,
-      email:email,
-      username:username,
-      dob:dob,
-      address1:address1,
-      address2:address2,
-      city:city,
-      state:state,
-      zipcode:zipcode,
-      password:password
+        let newDoc = new Doctor({
+        name:name,
+        lastName:lastname,
+        email:email,
+        username:username,
+        dob:dob,
+        address1:address1,
+        address2:address2,
+        city:city,
+        state:state,
+        zipcode:zipcode,
+        password:password
     });
     bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newUser.password, salt, (err, hash) => {
+      bcrypt.hash(newDoc.password, salt, (err, hash) => {
           if (err) {
               console.log(err);
           }
-          newUser.password = hash;
-          newUser.save((err) => {
+          newDoc.password = hash;
+          newDoc.save((err) => {
               if (err) {
                   console.log(err);
               } else {

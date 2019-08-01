@@ -66,7 +66,7 @@
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
-	      <p class="button-custom order-lg-last mb-0"><a href="/appointment" class="btn btn-secondary py-2 px-3">Make An Appointment</a></p>
+	      <p class="button-custom order-lg-last mb-0"><a data-toggle="modal" data-target="#modalLoginForm" href="#" class="btn btn-secondary py-2 px-3">Make An Appointment</a></p>
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav mr-auto">
 	        	<li class="nav-item active"><a href="/" class="nav-link pl-0">Home</a></li>
@@ -83,16 +83,9 @@
 						</div>
 					  </li>
 	        	<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link" href="/doctors/login">
 								Staff
-							  </a>
-							  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="/doctors/login">Doctor</a>
-								<a class="dropdown-item" href="/doctors/application">Nurse</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Others</a>
-							  </div>
-				</li>
+							  </a></li>
 	        	<li class="nav-item"><a href="/patient" class="nav-link" data-toggle="modal" data-target="#modalLoginForm">Patient</a></li>
 	        	<li class="nav-item"><a href="/department" class="nav-link">Departments</a></li>
 	        	<li class="nav-item"><a href="/admin/login" class="nav-link">Admin</a></li>
