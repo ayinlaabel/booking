@@ -111,10 +111,10 @@ app.get('/doctors', (req, res) => {
 });
 
 //Other Routes
-const reg = require('./routes/register');
+const patient = require('./routes/patient');
 const admin = require('./routes/admin');
 const doc = require('./routes/doctors');
-app.use('/hospital', reg);
+app.use('/hospital', patient);
 app.use('/admin', admin);
 app.use('/doctors', doc);
 

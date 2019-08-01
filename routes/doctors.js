@@ -97,19 +97,6 @@ router.post('/application', async (req, res)=>{
     })(req, res, next);
 });
 
-exports.loginUser = function (req, res, next) {
-  passport.authenticate('user-local', function(err, user, info) {
-      var error = err || info;
-      if (error) return res.json(401, error);
-
-      req.logIn(user, function(err) {
-
-          if (err) return res.send(err);
-          res.json(req.user.userInfo);
-      });
-  })(req, res, next);
-};
-
 router.get('/logout', (req, res) => {
   req.logout();
   req.flash('success', 'Logout Successful');
