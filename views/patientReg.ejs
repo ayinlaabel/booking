@@ -1,0 +1,57 @@
+<%- include ./partical/docHeader %>
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<div id="content-wrapper">
+
+    <div class="container-fluid">
+        <div class="row container">
+            <form action="#" method="post" class="col-12">
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                            <input class="form-control" type="text" name="regNo" placeholder="Registration Number">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                            <input class="form-control" type="text" name="name" placeholder="Name">
+                    </div>
+                    <div class="col-lg-6 form-group">
+                        <input type="text" class="form-control" name="lastname" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <input class="form-control" type="text" name="name" placeholder="Email">
+                    </div>
+                    <div class="col-lg-6 form-group">
+                        <select name="gender" id="" class="form-control">
+                            <option value="Male" selected>---- Gender ----</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <!-- <input type="text" class="form-control" name="lastname" placeholder="Gender"> -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <input class="form-control" type="text" name="name" placeholder="Telephone">
+                    </div>
+                    <div class="col-lg-6 form-group">
+                        <input type="date" class="form-control" name="lastname">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <input class="form-control" type="text" name="name" placeholder="Country">
+                    </div>
+                    <div class="col-lg-6 form-group">
+                        <input type="text" class="form-control" name="lastname" placeholder="Address">
+                    </div>
+                </div>
+                <button class="btn btn-success form-control">Submit </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include ./partical/docFooter %>

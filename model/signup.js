@@ -3,12 +3,12 @@ const mongoose= require('mongoose');
 let signSchema = mongoose.Schema({
     username:{
         type: String,
-        required: true
+        // required: true
     },
     password:{
         type: String,
-        required: true
-    }
+        // required: true
+    },
 });
 
 let User = module.exports = mongoose.model('User', signSchema);

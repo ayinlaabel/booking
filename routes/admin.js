@@ -57,7 +57,7 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', (req, res, next) =>{
-    passport.authenticate('local', {
+    passport.authenticate('user-local', {
         successRedirect: '/admin/dashboard',
         failureRedirect: '/admin/login',
         failureFlash: true
@@ -67,7 +67,7 @@ router.post('/login', (req, res, next) =>{
 router.get('/logout', (req, res) => {
   req.logout();
   req.flash('success', 'Logout Successful');
-  res.redirect('/');
+  res.redirect('/admin/login');
 });
 
 
@@ -95,10 +95,11 @@ router.get('/doctor/:id', (req, res) => {
   })
 });
 
-router.post('/doctor/accept', (req, res)=>{
+router.post('/add_doctor', async (req, res)=>{
   const name = req.body.name;
   const lastname = req.body.lastname;
   const email = req.body.email;
+  const username = req.body.email;
   const dob = req.body.dob;
   const address1 = req.body.address1;
   const address2 = req.body.address2;
@@ -108,7 +109,7 @@ router.post('/doctor/accept', (req, res)=>{
   const password = req.body.password; 
   // const passwordC = req.body.passwordC;
   
-  console.log(name);
+  // console.log(name);
   req.checkBody('name', 'Name is Required').notEmpty();
   req.checkBody('lastname', 'Last Name is Required').notEmpty();
   req.checkBody('email', 'email is Required').notEmpty();
@@ -123,29 +124,30 @@ router.post('/doctor/accept', (req, res)=>{
 
       if (errors) {
       console.log(errors)
-      res.render('doctorApplication', {
+      res.render('add_doctor', {
           errors:errors,
       });
       } else {
-    let newDoctor = new Doctor({
-      name:name,
-      lastName:lastname,
-      email:email,
-      dob:dob,
-      address1:address1,
-      address2:address2,
-      city:city,
-      state:state,
-      zipcode:zipcode,
-      password:password
+        let newDoc = new Doctor({
+        name:name,
+        lastName:lastname,
+        email:email,
+        username:username,
+        dob:dob,
+        address1:address1,
+        address2:address2,
+        city:city,
+        state:state,
+        zipcode:zipcode,
+        password:password
     });
     bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newDoctor.password, salt, (err, hash) => {
+      bcrypt.hash(newDoc.password, salt, (err, hash) => {
           if (err) {
               console.log(err);
           }
-          newDoctor.password = hash;
-          newDoctor.save((err) => {
+          newDoc.password = hash;
+          newDoc.save((err) => {
               if (err) {
                   console.log(err);
               } else {

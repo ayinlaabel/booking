@@ -1,16 +1,20 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const passport = require('passport');
 const mongoose = require('mongoose');
 const router = express.Router();
 
 //Bring in Models
 const pendingDoc = require('../model/pendingDoc');
+const User = require('../model/signup');
 
-router.get('/application', (req, res) => {
-    res.render('doctorApplication');
+router.get('/application', (req, res, errors) => {
+    res.render('doctorApplication', {
+      errors: errors
+    });
 });
 
-router.post('/application', (req, res)=>{
+router.post('/application', async (req, res)=>{
     const name = req.body.name;
     const lastname = req.body.lastname;
     const email = req.body.email;
@@ -37,11 +41,10 @@ router.post('/application', (req, res)=>{
     let errors = req.validationErrors();
   
         if (errors) {
-        console.log(errors)
         res.render('doctorApplication', {
             errors:errors,
         });
-        } else {
+        }else {
       let newPendingDoc = new pendingDoc({
         name:name,
         lastName:lastname,
@@ -54,23 +57,76 @@ router.post('/application', (req, res)=>{
         zipcode:zipcode,
         password:password
       });
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newPendingDoc.password, salt, (err, hash) => {
-            if (err) {
-                console.log(err);
-            }
-            newPendingDoc.password = hash;
-            newPendingDoc.save((err) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                  req.flash('success', 'Application Send Successfully');
-                  res.redirect('/');
-                }
-            });
-        });
+
+      newPendingDoc.save((err) => {
+        if (err) {
+            console.log(err);
+        } else {
+          req.flash('success', 'Application Send Successfully');
+          res.redirect('/');
+        }
       });
+      // bcrypt.genSalt(10, (err, salt) => {
+      //   bcrypt.hash(newPendingDoc.password, salt, (err, hash) => {
+      //       if (err) {
+      //           console.log(err);
+      //       }
+      //       newPendingDoc.password = hash;
+      //       newPendingDoc.save((err) => {
+      //           if (err) {
+      //               console.log(err);
+      //           } else {
+      //             req.flash('success', 'Application Send Successfully');
+      //             res.redirect('/');
+      //           }
+      //       });
+      //   });
+      // });
     }
   });
+
+  router.get('/login', (req, res) => {
+    res.render('docLogin');
+  });
+
+  router.post('/login', (req, res, next) =>{
+    passport.authenticate('doctor-local', {
+        successRedirect: '/doctors/dashboard',
+        failureRedirect: '/doctors/login',
+        failureFlash: true
+    })(req, res, next);
+});
+
+exports.loginUser = function (req, res, next) {
+  passport.authenticate('user-local', function(err, user, info) {
+      var error = err || info;
+      if (error) return res.json(401, error);
+
+      req.logIn(user, function(err) {
+
+          if (err) return res.send(err);
+          res.json(req.user.userInfo);
+      });
+  })(req, res, next);
+};
+
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.flash('success', 'Logout Successful');
+  res.redirect('/doctors/login');
+});
+
+router.get('/dashboard', (req, res) =>{
+  res.render('docDashboard')
+});
+
+router.get('/patient/register', (req, res) =>{
+  res.render('patientReg')
+});
+
+router.post('/patient/register', (req, res) =>{
+  
+});
+
 
 module.exports = router;
