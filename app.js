@@ -114,7 +114,7 @@ app.get('/doctors', (req, res) => {
 const patient = require('./routes/patient');
 const admin = require('./routes/admin');
 const doc = require('./routes/doctors');
-app.use('/hospital', patient);
+app.use('/hospital/patient', patient);
 app.use('/admin', admin);
 app.use('/doctors', doc);
 

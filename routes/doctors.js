@@ -103,7 +103,7 @@ router.get('/logout', (req, res) => {
   res.redirect('/doctors/login');
 });
 
-router.get('/dashboard', (req, res) =>{
+router.get('/dashboard', ensureAuthenticated, (req, res) =>{
   res.render('docDashboard')
 });
 
@@ -114,6 +114,15 @@ router.get('/patient/register', (req, res) =>{
 router.post('/patient/register', (req, res) =>{
   
 });
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+      return next();
+  } else {
+      req.flash('danger', 'User Not Login, Please Login');
+      res.redirect('/doctors/login');
+  }
+}
 
 
 module.exports = router;

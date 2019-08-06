@@ -7,14 +7,18 @@ const bcrypt = require('bcryptjs');
 //Bring In Patient Model
 const Patient = require('../model/patients');
 
-const routes = express.Router();
+const router = express.Router();
 
-routes.get('/patient', (req, res, errors) =>{
+router.get('/dashboard', (req, res) =>{
+    res.render('patientDashboard');
+});
+
+router.get('/', (req, res, errors) =>{
     res.render('patientReg', {
         errors:errors
     });
 });
-routes.post('/patient', (req, res) =>{
+router.post('/', (req, res) =>{
     const name = req.body.name;
     const lastname = req.body.lastname;
     const email = req.body.email;
@@ -79,11 +83,22 @@ routes.post('/patient', (req, res) =>{
     }
 });
 
-routes.get('/patient/login', (req, res) =>{
+
+
+router.get('/checkAppointment', ensureAuthenticated, (req, res) => {
+    res.render('makeAppointment');
+});
+router.get('/makeAppointment', ensureAuthenticated, (req, res) => {
+    res.render('makeAppointment');
+});
+
+router.get('/login', (req, res) =>{
     res.render('patientLogin');
 });
 
-routes.post('/patient/login', (req, res, next) =>{
+
+
+router.post('/login', (req, res, next) =>{
     passport.authenticate('patient-local', {
         successRedirect: '/hospital/patient/dashboard',
         failureRedirect: '/hospital/patient/login',
@@ -91,8 +106,13 @@ routes.post('/patient/login', (req, res, next) =>{
     })(req, res, next);
 });
 
-routes.get('/patient/dashboard', (req, res) =>{
-    res.render('patientDashboard');
-});
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        req.flash('danger', 'User Not Login, Please Login');
+        res.redirect('/hospital/patient/login');
+    }
+}
 
-module.exports = routes
+module.exports = router

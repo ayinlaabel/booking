@@ -8,10 +8,10 @@
 
   
       
-      let newDoc = await Doctor.find({email: req.body.email});
+        let newDoc = await Doctor.find({email: req.body.email});
 
-      if (newDoc) {
-        return res.status(400).send('User Already Exists!');
+        if (newDoc) {
+            return res.status(400).send('User Already Exists!');
 
 
 
