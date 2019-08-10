@@ -88,7 +88,7 @@ router.post('/', (req, res) =>{
 router.get('/checkAppointment', ensureAuthenticated, (req, res) => {
     res.render('makeAppointment');
 });
-router.get('/makeAppointment', ensureAuthenticated, (req, res) => {
+router.get('/makeAppointment', (req, res) => {
     res.render('makeAppointment');
 });
 
