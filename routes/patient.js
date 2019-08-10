@@ -88,7 +88,11 @@ router.post('/', (req, res) =>{
 router.get('/checkAppointment', ensureAuthenticated, (req, res) => {
     res.render('makeAppointment');
 });
+<<<<<<< HEAD
 router.get('/makeAppointment',  (req, res) => {
+=======
+router.get('/makeAppointment', (req, res) => {
+>>>>>>> ab00bd9bb1bac23d282ab00ffc336f0f5c534c11
     res.render('makeAppointment');
 });
 

@@ -4,7 +4,7 @@
   "description": "Sulaimon Project",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app"
   },
   "author": "Krane Abel",
   "license": "ISC",
@@ -20,5 +20,8 @@
     "mongoose": "^5.6.4",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }

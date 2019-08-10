@@ -109,6 +109,13 @@ app.get('/department', (req, res) => {
 app.get('/doctors', (req, res) => {
     res.render('doctors');
 });
+app.get('/about', (req, res) => {
+    res.render('about');
+});
+
+app.get('/contact.html', (req, res) => {
+    res.render('contact');
+});
 
 //Other Routes
 const patient = require('./routes/patient');
