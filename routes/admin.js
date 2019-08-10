@@ -71,11 +71,11 @@ router.get('/logout', (req, res) => {
 });
 
 
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', ensureAuthenticated, (req, res) => {
     res.render('admin');
 });
 
-router.get('/add_doctor', (req, res) => {
+router.get('/add_doctor',ensureAuthenticated, (req, res) => {
   pendingDoc.find({}, (err, pendingDocs) =>{
     if (err) {
       console.log(err);
@@ -87,7 +87,7 @@ router.get('/add_doctor', (req, res) => {
   })
 });
 
-router.get('/doctor/:id', (req, res) => {
+router.get('/doctor/:id',ensureAuthenticated, (req, res) => {
   pendingDoc.findById(req.params.id, (err, doc) =>{
     res.render('add_doctor', {
       doc:doc
@@ -95,7 +95,7 @@ router.get('/doctor/:id', (req, res) => {
   })
 });
 
-router.post('/add_doctor', async (req, res)=>{
+router.post('/add_doctor', ensureAuthenticated,async (req, res)=>{
   const name = req.body.name;
   const lastname = req.body.lastname;
   const email = req.body.email;
@@ -161,7 +161,7 @@ router.post('/add_doctor', async (req, res)=>{
 });
 
 
-router.delete('/doctor/:id', (req, res) =>{
+router.delete('/doctor/:id', ensureAuthenticated,(req, res) =>{
   let query = {_id:req.params.id};
 
   pendingDoc.remove(query, (err) =>{
@@ -171,4 +171,14 @@ router.delete('/doctor/:id', (req, res) =>{
     res.send('success');
   });
 });
+
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+      return next();
+  } else {
+      req.flash('danger', 'User Not Login, Please Login');
+      res.redirect('/admin/login');
+  }
+}
 module.exports = router;
