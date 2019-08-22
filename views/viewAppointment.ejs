@@ -1,0 +1,45 @@
+<%- include ./partical/patientHeader %>
+<div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Data Table Example</div>
+        <div class="card-body">
+            <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Age</th>
+                    <th>Start date</th>
+                    <th>Salary</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Age</th>
+                    <th>Start date</th>
+                    <th>Salary</th>
+                </tr>
+                </tfoot>
+                <% appointments.forEach((appointment)=>{ %>
+                    <tbody>
+                        <tr>
+                            <td><%= appointment.service %></td>
+                            <td><%= appointment.time %></td>
+                            <td><%= appointment.date %></td>
+                            <td><%= appointment.date %></td>
+                            <td><%= appointment.city %></td>
+                            <td><a href="#" class="btn btn-primary">Details</a></td>
+                        </tr>
+                    </tbody>
+                <% }) %>
+            </table>
+        </div>
+    </div>
+</div>
+<%- include ./partical/docFooter %>

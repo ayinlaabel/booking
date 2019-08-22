@@ -1,4 +1,5 @@
 const express = require('express');
+const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport')
 const bcrypt = require('bcryptjs');
@@ -6,12 +7,8 @@ const bcrypt = require('bcryptjs');
 
 //Bring In Patient Model
 const Patient = require('../model/patients');
+const Appointment = require('../model/appointment');
 
-const router = express.Router();
-
-router.get('/dashboard', (req, res) =>{
-    res.render('patientDashboard');
-});
 
 router.get('/', (req, res, errors) =>{
     res.render('patientReg', {
@@ -83,23 +80,49 @@ router.post('/', (req, res) =>{
     }
 });
 
-
-
-router.get('/checkAppointment', ensureAuthenticated, (req, res) => {
-    res.render('makeAppointment');
-});
-<<<<<<< HEAD
-router.get('/makeAppointment',  (req, res) => {
-=======
-router.get('/makeAppointment', (req, res) => {
->>>>>>> ab00bd9bb1bac23d282ab00ffc336f0f5c534c11
-    res.render('makeAppointment');
-});
-
 router.get('/login', (req, res) =>{
     res.render('patientLogin');
 });
 
+router.get('/make-appointment-with-a-doctor',(req, res) =>{
+    res.render('makeAppointment')   
+});
+
+router.post('/make-appointment-with-a-doctor', (req, res) =>{
+    let appointment = new Appointment();
+    // appointment.name = req.user._id;
+    appointment.city = req.body.city;
+    appointment.service = req.body.service;
+    appointment.date = req.body.date;
+    appointment.time = req.body.time;
+    appointment.comment = req.body.comment;
+
+    console.log(req.body.time);
+    appointment.save((err) =>{
+        if (err) {
+            console.log(err);
+        } else {
+            req.flash('success', 'Your Appointment as been Sent Successfully');
+            res.redirect('/hospital/patient/dashboard');
+        }
+    });
+});
+
+router.get('/view-appointment-make', (req, res)=>{
+    Appointment.find({}, (err, appointments) =>{
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('viewAppointment', {
+                appointments: appointments
+            });
+        }
+    });
+});
+
+router.get('/dashboard', (req, res) =>{
+    res.render('patientDashboard');
+});
 
 
 router.post('/login', (req, res, next) =>{
@@ -110,13 +133,24 @@ router.post('/login', (req, res, next) =>{
     })(req, res, next);
 });
 
-function ensureAuthenticated(req, res, next) {
+router.get('/logout', (req, res) => {
+    req.logout();
+    req.flash('success', 'Logout Successful');
+    res.redirect('/hospital/patient/login');
+  });
+
+
+
+
+
+//Router Authenticated
+function ensureAuthenticated(req, res, next){
     if (req.isAuthenticated()) {
-        return next();
+      return next();
     } else {
-        req.flash('danger', 'User Not Login, Please Login');
-        res.redirect('/hospital/patient/login');
+      req.flash('danger', 'You are require to login');
+      res.redirect('/hospital/patient/login');
     }
-}
+  }
 
 module.exports = router

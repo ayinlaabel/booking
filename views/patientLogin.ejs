@@ -24,9 +24,9 @@
   <div class="container">
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">Login</div>
-      <div class="card-body">
-        <%- messages('message', locals) %>
+      <div class="card-body"> 
         <form action="/hospital/patient/login" method="POST">
+          <%- messages('message', locals) %>
           <div class="form-group">
             <div class="form-label-group">
               <input type="text" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus" name="email">

@@ -1,15 +1,13 @@
 <%- include ./partical/patientHeader %>
-<<<<<<< HEAD
-=======
 <div class="container">
     <br>
     <div class="container-fluid">
         <div class="row container">
-            <form action="/hospital/patient" method="post" class="col-12">
+            <form action="/hospital/patient/make-appointment-with-a-doctor" method="post" class="col-12">
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label>Patient Name</label>
-                            <input class="form-control" type="text" name="name" value="User" disabled>
+                            <input class="form-control" type="text" name='' value="User" disabled>
                     </div>
                     <div class="col-lg-6 form-group">
                         <label class="elias">Patient Id</label>
@@ -23,13 +21,13 @@
                     </div>
                     <div class="col-lg-6 form-group">
                         <label>Services</label>
-                        <select name="gender" class="form-control">
-                                <option value="Male" disabled selected>--Select Your Services--</option>
-                            <option value="Male">Dentist</option>
-                            <option value="Female">Neurological</option>
-                            <option value="Other">Surgical</option>
-                            <option value="Other">Ophthalmology</option>
-                            <option value="Other">Cardiology</option>
+                        <select name="service" class="form-control">
+                                <option  disabled selected>--Select Your Services--</option>
+                            <option value="Dentist">Dentist</option>
+                            <option value="Neurological">Neurological</option>
+                            <option value="Surgical">Surgical</option>
+                            <option value="Ophthalmology">Ophthalmology</option>
+                            <option value="Cardiology">Cardiology</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
@@ -37,21 +35,21 @@
                 <div class="row">
                         <div class="col-lg-6 form-group">
                             <label>Date of apointment</label>
-                            <input type="date" class="form-control" name="dob">
+                            <input type="date" class="form-control" name="date">
                         </div>
                     <div class="col-lg-6 form-group">
                         <label>Time of apointment</label>
-                        <input type="time" class="form-control" name="Time">
+                        <input type="time" class="form-control" name="time">
                     </div>
                 </div>
                 <div class="form-group">
-                    <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Describe your Illeness Symptom"></textarea>
+                    <textarea name="comment" id="" cols="30" rows="7" class="form-control" placeholder="Describe your Illeness Symptom"></textarea>
                   </div>
-                <button class="btn btn-success"><a href="#" style="text-decoration: none; color: #ffffff">Submit</a></button>
+                <button class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>
     <br>
 </div>
->>>>>>> ab00bd9bb1bac23d282ab00ffc336f0f5c534c11
-<%- include ./partical/docFooter %>
+<%- include ./partical/docFooter %> <div class="container-fluid">
+        <div class="row container">

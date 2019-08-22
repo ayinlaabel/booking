@@ -103,7 +103,7 @@ router.get('/logout', (req, res) => {
   res.redirect('/doctors/login');
 });
 
-router.get('/dashboard', ensureAuthenticated, (req, res) =>{
+router.get('/dashboard', (req, res) =>{
   res.render('docDashboard')
 });
 
