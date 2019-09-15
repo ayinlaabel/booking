@@ -8,6 +8,10 @@ const router = express.Router();
 const pendingDoc = require('../model/pendingDoc');
 const User = require('../model/signup');
 
+router.get('/', (req, res) =>{
+  res.render('doctor')
+})
+
 router.get('/application', (req, res, errors) => {
     res.render('doctorApplication', {
       errors: errors
@@ -63,7 +67,7 @@ router.post('/application', async (req, res)=>{
             console.log(err);
         } else {
           req.flash('success', 'Application Send Successfully');
-          res.redirect('/');
+          res.redirect('/doctors');
         }
       });
       // bcrypt.genSalt(10, (err, salt) => {
@@ -90,7 +94,7 @@ router.post('/application', async (req, res)=>{
   });
 
   router.post('/login', (req, res, next) =>{
-    passport.authenticate('doctor-local', {
+    passport.authenticate('user-local', {
         successRedirect: '/doctors/dashboard',
         failureRedirect: '/doctors/login',
         failureFlash: true
@@ -103,16 +107,8 @@ router.get('/logout', (req, res) => {
   res.redirect('/doctors/login');
 });
 
-router.get('/dashboard', (req, res) =>{
+router.get('/dashboard', ensureAuthenticated, (req, res) =>{
   res.render('docDashboard')
-});
-
-router.get('/patient/register', (req, res) =>{
-  res.render('patientReg')
-});
-
-router.post('/patient/register', (req, res) =>{
-  
 });
 
 function ensureAuthenticated(req, res, next) {
@@ -125,4 +121,6 @@ function ensureAuthenticated(req, res, next) {
 }
 
 
-module.exports = router;
+
+
+module.exports = router;3000

@@ -1,45 +1,110 @@
 <%- include ./partical/patientHeader %>
-<div class="card mb-3">
-        <div class="card-header">
-            <i class="fas fa-table"></i>
-            Data Table Example</div>
-        <div class="card-body">
-            <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                </tr>
-                </thead>
-                <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                </tr>
-                </tfoot>
-                <% appointments.forEach((appointment)=>{ %>
-                    <tbody>
-                        <tr>
-                            <td><%= appointment.service %></td>
-                            <td><%= appointment.time %></td>
-                            <td><%= appointment.date %></td>
-                            <td><%= appointment.date %></td>
-                            <td><%= appointment.city %></td>
-                            <td><a href="#" class="btn btn-primary">Details</a></td>
-                        </tr>
-                    </tbody>
-                <% }) %>
-            </table>
-        </div>
+<div class="container">
+        <br>
+        <div class="container-fluid">
+            <div style="padding-bottom: 0.5rem;">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fas fa-plus"></i> &nbsp; New Appointment</button>
+            </div>
+            <div class="row container">
+                <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <!-- <th scope="col">S/N</th> -->
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Service</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Details</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ol>
+                                <% appointments.forEach((appointment) =>{ %>
+                                    <tr>
+                                        <!-- <th scope=""><li></li></th> -->
+                                        <td><%= user.name %></td>
+                                        <td><%= user.lastname %></td>
+                                        <td><%= appointment.service %></td>
+                                        <td><%= appointment.time %></td>
+                                        <td><%= appointment.date %></td>
+                                        <td><a href="view-appointment-details-<%= appointment._id %>" class="btn btn-primary btn-sm">Details</a>
+                                        </td>
+                                        <td><a href="#" class="btn btn-danger btn-sm delete-appointment" data-id='<%= appointment._id %>'>Cancel</a>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </ol>
+                        </tbody>
+                    </table>
+      
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <form action="/hospital/patient/view-appointment-make" method="POST" class="col-12">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Patient Name</label>
+                            <input class="form-control" type="text" name='name' value="<%= user.name %> <%= user.lastname %>" disabled>
+                    </div>
+                    <div class="col-lg-6 form-group">
+                        <label class="elias">Patient Id</label>
+                        <input type="text" class="form-control" name="lastname" value="<%= user._id %>" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                   <div class="col-lg-6 form-group">
+                        <label>City</label>
+                        <input type="text" class="form-control" name="city" placeholder="City">
+                    </div>
+                    <div class="col-lg-6 form-group">
+                        <label>Services</label>
+                        <select name="service" class="form-control">
+                            <option  disabled selected>--Select Your Services--</option>
+                            <option value="Dentist">Dentist</option>
+                            <option value="Neurological">Neurological</option>
+                            <option value="Surgical">Surgical</option>
+                            <option value="Ophthalmology">Ophthalmology</option>
+                            <option value="Cardiology">Cardiology</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-lg-6 form-group">
+                            <label>Date of apointment</label>
+                            <input type="date" class="form-control" name="date">
+                        </div>
+                    <div class="col-lg-6 form-group">
+                        <label>Time of apointment</label>
+                        <input type="time" class="form-control" name="time">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <textarea name="comment" id="" cols="30" rows="7" class="form-control" placeholder="Describe your Illeness Symptom"></textarea>
+                  </div>
+                <button class="btn btn-success">Submit</button>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+        <!-- <button type="button" class="btn btn-primary">Send message</button> -->
+      </div>
     </div>
+  </div>
 </div>
+
+
+
 <%- include ./partical/docFooter %>

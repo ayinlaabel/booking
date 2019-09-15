@@ -16,7 +16,7 @@ router.get('/department', (req, res) => {
   res.render('department');
 });
 
-router.get('/doctors', (req, res) => {
+router.get('/doctor', (req, res) => {
   res.render('doctors');
 });
 router.get('/about', (req, res) => {

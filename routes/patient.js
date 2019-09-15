@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 
 
 //Bring In Patient Model
-const Patient = require('../model/patients');
+const User = require('../model/signup');
 const Appointment = require('../model/appointment');
 
 
@@ -18,8 +18,10 @@ router.get('/', (req, res, errors) =>{
 router.post('/', (req, res) =>{
     const name = req.body.name;
     const lastname = req.body.lastname;
+    const username = req.body.lastname;
     const email = req.body.email;
     const gender = req.body.gender;
+    const position = req.body.position;
     const tel = req.body.tel;
     const dob = req.body.dob;
     const country = req.body.country;
@@ -48,10 +50,12 @@ router.post('/', (req, res) =>{
             errors:errors
         });
     } else{
-        let newPatient = new Patient({
+        let user = new User({
             name:name,
             lastname:lastname,
+            username:username,
             email:email,
+            position:position,
             gender:gender,
             tel:tel,
             dob:dob,
@@ -62,12 +66,12 @@ router.post('/', (req, res) =>{
             password:password,
         });
         bcrypt.genSalt(10, (err, salt) =>{
-            bcrypt.hash(newPatient.password, salt, (err, hash) =>{
+            bcrypt.hash(user.password, salt, (err, hash) =>{
                 if (err) {
                     console.log(err);
                 }
-                newPatient.password = hash;
-                newPatient.save((err) => {
+                user.password = hash;
+                user.save((err) => {
                     if (err) {
                         console.log(err);
                     } else {
@@ -84,11 +88,11 @@ router.get('/login', (req, res) =>{
     res.render('patientLogin');
 });
 
-router.get('/make-appointment-with-a-doctor',(req, res) =>{
+router.get('/make-appointment-with-a-doctor', ensureAuthenticated, (req, res) =>{
     res.render('makeAppointment')   
 });
 
-router.post('/make-appointment-with-a-doctor', (req, res) =>{
+router.post('/view-appointment-make', ensureAuthenticated,(req, res) =>{
     let appointment = new Appointment();
     // appointment.name = req.user._id;
     appointment.city = req.body.city;
@@ -103,35 +107,74 @@ router.post('/make-appointment-with-a-doctor', (req, res) =>{
             console.log(err);
         } else {
             req.flash('success', 'Your Appointment as been Sent Successfully');
-            res.redirect('/hospital/patient/dashboard');
+            res.redirect('/hospital/patient/view-appointment-make');
         }
     });
 });
 
-router.get('/view-appointment-make', (req, res)=>{
+router.get('/view-appointment-make', ensureAuthenticated, (req, res)=>{
     Appointment.find({}, (err, appointments) =>{
         if (err) {
             console.log(err);
         } else {
-            res.render('viewAppointment', {
-                appointments: appointments
-            });
+            Appointment.findById(req.params.id, (err, appointment) =>{
+                res.render('viewAppointment', {
+                    appointments: appointments,
+                    // appointment: appointment
+                });
+            })
         }
     });
 });
 
-router.get('/dashboard', (req, res) =>{
+router.get('/view-appointment-details-:id', ensureAuthenticated, (req, res) =>{
+    Appointment.findById(req.params.id, (err, appointment) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('viewMe', {
+                appointment:appointment
+            });
+        }
+    })
+});
+
+router.get('/view-appointment-check-:id', ensureAuthenticated, (req, res) =>{
+    Appointment.findById(req.params.id, (err, appointment) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('deleteMe', {
+                appointment:appointment
+            });
+        }
+    })
+});
+
+router.delete('/view-appointment-check-:id', ensureAuthenticated, (req, res) =>{
+    let query = {_id:req.params.id};
+  
+    Appointment.remove(query, (err) =>{
+      if (err) {
+        console.log(err);
+      } 
+      res.send('success');
+    });
+  });
+
+router.get('/dashboard', ensureAuthenticated, (req, res) =>{
     res.render('patientDashboard');
 });
 
 
 router.post('/login', (req, res, next) =>{
-    passport.authenticate('patient-local', {
+    passport.authenticate('user-local', {
         successRedirect: '/hospital/patient/dashboard',
         failureRedirect: '/hospital/patient/login',
         failureFlash: true
     })(req, res, next);
 });
+
 
 router.get('/logout', (req, res) => {
     req.logout();
@@ -146,6 +189,15 @@ router.get('/logout', (req, res) => {
 //Router Authenticated
 function ensureAuthenticated(req, res, next){
     if (req.isAuthenticated()) {
+      return next();
+    } else {
+      req.flash('danger', 'You are require to login');
+      res.redirect('/hospital/patient/login');
+    }
+  }
+
+  function login(req, res, next){
+    if (user.position === 'patient') {
       return next();
     } else {
       req.flash('danger', 'You are require to login');

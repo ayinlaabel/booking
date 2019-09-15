@@ -9,6 +9,10 @@ const pendingDoc = require('../model/pendingDoc');
 const Doctor = require('../model/doctors');
 
 
+router.get('/', (req, res) =>{
+  res.render('administration');
+})
+
 router.get('/signup', (req, res) => {
     res.render('signup');
 });
@@ -128,7 +132,7 @@ router.post('/add_doctor', ensureAuthenticated,async (req, res)=>{
           errors:errors,
       });
       } else {
-        let newDoc = new Doctor({
+        let newDoc = new User({
         name:name,
         lastName:lastname,
         email:email,
